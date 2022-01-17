@@ -1,0 +1,30 @@
+ДЗ SQL "Простые выборки"
+Михайловская Ирина
+
+1. Сделать полную выборку из таблицы customers:
+SELECT *
+FROM customers
+
+2. Выбрать имена контактов и города из таблицы customers:
+SELECT contact_name, city
+FROM customers
+
+3. Сделать выборку заказов и вывести в колоке количество дней ушедших на доставку заказов:
+SELECT order_id, shipped_date - order_date
+FROM orders
+
+4. Вывести уникальные города заказчиков:
+SELECT DISTINCT city
+FROM customers
+
+5. Вывести уникальное сочетание города и страны для customers:
+SELECT DISTINCT city, country
+FROM customers
+
+6. Подсчитать количество клиентов в таблице customers
+SELECT Count(*)
+FROM customers
+
+7. Вычесление количество стран из которых наши заказчики:
+SELECT COUNT(DISTINCT country)
+FROM customers

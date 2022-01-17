@@ -1,0 +1,32 @@
+ДЗ SQL "Простые выборки-2"
+Михайловская Ирина
+
+1. Найти все заказы из Франции, Австрии и Испании:
+SELECT *
+FROM orders
+WHERE ship_country IN ('France', 'Austria', 'Spain')
+
+2. Найти все заказы и отсортировать их по дате затребования доставки по убыванию и по реальной дате отгрузки по возрастанию:
+SELECT *
+FROM orders
+ORDER BY required_date DESC, shipped_date
+
+3. Найти минимальную цену для всех продуктов, которых в продаже более 30 штук:
+SELECT MIN(unit_price)
+FROM products
+WHERE units_in_stock > 30
+
+4. Среди продуктров стоящих более 30 найти продукт, которого больше всего в продаже:
+SELECT MAX(units_in_stock)
+FROM products
+WHERE unit_price > 30
+
+5. Вычеслить среднее количество дней, которое уходит на отгрузку, начиная с даты, когда заказ был сформирован, для заказов из США:
+SELECT AVG(shipped_date - order_date)
+FROM orders
+WHERE ship_country = 'USA'
+
+6. Вычеслить полную сумму на которую продаются у нас продукты, с учетом их количества в продаже:
+SELECT SUM(unit_price * units_in_stock)
+FROM products
+WHERE discontinued <> 1
