@@ -1,0 +1,66 @@
+ДЗ SQL "Группировка, сопоставление, сортировка"
+Михайловская Ирина
+
+1. Найти заказы, которые отгружаются в страны начинающиеся с заглавной U:
+SELECT *
+FROM orders
+WHERE ship_country LIKE 'U%'
+
+2. Найти заказы, которые поставляются в страны название которых начинается с заглавной N. Остортировать такие заказы по весу и вывести первые 10.
+SELECT order_id, freight, ship_country
+FROM orders
+WHERE ship_country LIKE 'N%'
+ORDER BY freight DESC
+LIMIT 10
+
+3. Вывести имя, фамилию и номер телефона домашнего всех сотрудников, регион которых равен значению NULL:
+SELECT first_name, last_name, home_phone
+FROM employees
+WHERE region IS NULL
+
+4. Подсчет количетсва заказчиков, у которых регион не NULL:
+SELECT COUNT(*)
+FROM customers
+WHERE region IS NOT NULL
+
+5. Подсчитать количество доставщиков и сгруппировать их по странам:
+SELECT country, COUNT(*)
+FROM suppliers
+GROUP BY country
+ORDER BY COUNT(*) DESC
+
+6. Найти суммарный вес по заказам, сгруппировать по странам, по региону (не должен быть NULL)и затем отфильтровать по весу (>2750) и отсортировать по суммарному весу от меньшего к большему:
+SELECT ship_country, SUM(freight)
+FROM orders
+WHERE ship_region IS NOT NULL
+GROUP BY ship_country
+HAVING SUM(freight) > 2750
+ORDER BY SUM(freight) DESC
+
+7. Вычеслить страны из которых происходят наши клиенты и поставщики и отсортировать по странам:
+SELECT country
+FROM customers
+UNION
+SELECT country
+FROM suppliers
+ORDER BY country 
+
+8. Найти страны из которых происходят клиенты, поставщики и работники
+SELECT country
+FROM customers
+INTERSECT
+SELECT country
+FROM suppliers
+INTERSECT
+SELECT country
+FROM employees
+
+9. Вычесление стран из которых происходят клиенты и поставщики, кроме стран из которых происходят работники:
+SELECT country
+FROM customers
+INTERSECT
+SELECT country
+FROM suppliers
+EXCEPT
+SELECT country
+FROM employees
