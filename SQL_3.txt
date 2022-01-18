@@ -64,3 +64,5 @@ FROM suppliers
 EXCEPT
 SELECT country
 FROM employees
+
+10. Всем привет
